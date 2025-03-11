@@ -16,7 +16,7 @@ class AuthController extends Controller
         if (!Auth::guard('api')->attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => __('auth.failed'),
-            ]);
+            ], 401);
         }
 
         $user = User::find(auth('api')->user()->id);
