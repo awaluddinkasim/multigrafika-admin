@@ -22,7 +22,7 @@ class OrderController extends Controller
             'status' => 'completed'
         ]);
 
-        return to_route('orders');
+        return to_route('orders')->with('success', __('order.completed'));
     }
 
     public function cancel(Order $order): RedirectResponse
@@ -31,6 +31,6 @@ class OrderController extends Controller
             'status' => 'cancelled'
         ]);
 
-        return to_route('orders');
+        return to_route('orders')->with('success', __('order.cancelled'));
     }
 }

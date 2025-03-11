@@ -30,7 +30,7 @@ class UserController extends Controller
 
         User::create($data);
 
-        return to_route('account.user');
+        return to_route('account.user')->with('success', __('user.created'));
     }
 
     public function edit(User $user): View
@@ -59,12 +59,12 @@ class UserController extends Controller
         $user->update($data);
 
 
-        return to_route('account.user');
+        return to_route('account.user')->with('success', __('user.updated'));
     }
 
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return to_route('account.user');
+        return to_route('account.user')->with('success', __('user.deleted'));
     }
 }

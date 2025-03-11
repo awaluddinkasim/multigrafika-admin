@@ -33,6 +33,6 @@ class ProfileController extends Controller
         $admin = Admin::find(auth('web')->user()->id);
         $admin->update($data);
 
-        return back();
+        return back()->with('success', __('user.updated'));
     }
 }

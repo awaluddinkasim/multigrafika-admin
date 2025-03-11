@@ -39,7 +39,7 @@ class StickerController extends Controller
 
         Sticker::create($data);
 
-        return to_route('stickers.list');
+        return to_route('stickers.list')->with('success', __('sticker.created'));
     }
 
     public function show(Sticker $sticker): View
@@ -73,7 +73,7 @@ class StickerController extends Controller
 
         $sticker->update($data);
 
-        return to_route('stickers.list');
+        return to_route('stickers.list')->with('success', __('sticker.updated'));
     }
 
     public function destroy(Sticker $sticker): RedirectResponse
@@ -82,6 +82,6 @@ class StickerController extends Controller
 
         $sticker->delete();
 
-        return to_route('stickers.list');
+        return to_route('stickers.list')->with('success', __('sticker.deleted'));
     }
 }
