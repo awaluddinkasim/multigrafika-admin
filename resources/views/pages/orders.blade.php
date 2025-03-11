@@ -3,6 +3,13 @@
     <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
         <div class="trezo-card-content">
             <div class="overflow-x-auto table-responsive">
+                @if (Session::has('success'))
+                    <div
+                        class="py-[1rem] px-[1rem] text-success-500 bg-success-50 border border-success-200 rounded-md mb-3">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+
                 <table class="w-full">
                     <thead class="text-black dark:text-white">
                         <tr>

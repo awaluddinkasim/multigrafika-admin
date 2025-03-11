@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/jsvectormap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/quill.snow.css') }}">
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.ico') }}">
@@ -105,6 +105,16 @@
     <script src="{{ asset('assets/js/world-merc.js') }}"></script>
     <script src="{{ asset('assets/js/quill.min.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    @if (Session::has('error'))
+        <script type="module">
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ Session::get('error') }}',
+            })
+        </script>
+    @endif
 </body>
 
 </html>

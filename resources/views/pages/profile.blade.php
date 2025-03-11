@@ -1,3 +1,15 @@
+@push('scripts')
+    @if (Session::has('success'))
+        <script type="module">
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ Session::get('success') }}',
+            })
+        </script>
+    @endif
+@endpush
+
 <x-layout title="Profile">
     <form action="{{ route('profile.update') }}" method="post" autocomplete="off">
         @method('PUT')

@@ -3,6 +3,8 @@
         @csrf
         <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
             <div class="trezo-card-content">
+                <x-errors />
+
                 <x-form.input label="Sticker Name" id="name" name="name" />
                 <x-form.input label="Price" id="price" name="price" />
                 <x-form.input label="Freelance Price" id="freelancePrice" name="freelance_price" />

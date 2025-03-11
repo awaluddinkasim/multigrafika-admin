@@ -1,3 +1,15 @@
+@push('scripts')
+    @if (Session::has('success'))
+        <script type="module">
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{{ Session::get('success') }}',
+            })
+        </script>
+    @endif
+@endpush
+
 <x-layout title="Stickers">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[25px] mb-[25px]">
         @forelse ($stickers as $sticker)

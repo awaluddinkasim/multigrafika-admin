@@ -8,6 +8,13 @@
                 Add Customer
             </button>
 
+            @if (Session::has('success'))
+                <div
+                    class="py-[1rem] px-[1rem] text-success-500 bg-success-50 border border-success-200 rounded-md my-3">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
+
             <div class="add-new-popup z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto"
                 id="add-new-popup">
                 <div class="popup-dialog flex transition-all max-w-[550px] min-h-full items-center mx-auto">
