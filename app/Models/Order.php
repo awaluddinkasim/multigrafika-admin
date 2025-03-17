@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
     use HasFactory;
+
+    protected $appends = ['month', 'day'];
 
     protected static function boot(): void
     {
@@ -40,5 +44,20 @@ class Order extends Model
     public function sticker(): BelongsTo
     {
         return $this->belongsTo(Sticker::class);
+    }
+
+
+    public function month(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->created_at)->isoFormat('MMMM'),
+        );
+    }
+
+    public function day(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Carbon::parse($this->created_at)->isoFormat('DD MMMM YYYY'),
+        );
     }
 }

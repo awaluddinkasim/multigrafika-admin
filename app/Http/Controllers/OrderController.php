@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Month;
 use App\Models\Order;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 class OrderController extends Controller
 {
     public function index(): View
     {
         return view('pages.orders', [
-            'orders' => Order::orderBy('status', 'desc')->paginate(10)
+            'orders' => Order::orderBy('status', 'desc')->orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
 
@@ -32,5 +36,28 @@ class OrderController extends Controller
         ]);
 
         return to_route('orders')->with('success', __('order.cancelled'));
+    }
+
+    public function export($period): Response
+    {
+        if ($period == 'monthly') {
+            $orders = Order::where('status', 'completed')
+                ->whereYear('created_at', date('Y'))
+                ->orderBy('status', 'desc')->orderBy('created_at', 'desc')
+                ->get()->groupBy('month');
+            $view = 'pdf.monthly-sales';
+        } elseif ($period == 'daily') {
+            $orders = Order::where('status', 'completed')
+                ->whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))
+                ->orderBy('status', 'desc')->orderBy('created_at', 'desc')
+                ->get()->groupBy('day');
+            $view = 'pdf.daily-sales';
+        }
+
+        $pdf = Pdf::loadView($view, [
+            'orders' => $orders
+        ]);
+
+        return $pdf->stream();
     }
 }

@@ -22,6 +22,7 @@ class OrderFactory extends Factory
             'price' => fake()->randomFloat(2, 0, 100),
             'freelance_price' => fake()->randomFloat(2, 0, 100),
             'status' => fake()->randomElement(['pending', 'completed', 'cancelled']),
+            'created_at' => fake()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 }

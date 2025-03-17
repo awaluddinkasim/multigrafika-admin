@@ -32,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
     Route::post('/order/{order:order_id}/complete', [OrderController::class, 'complete'])->name('orders.complete');
     Route::post('/orders/{order:order_id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+    Route::get('/orders/export/{period}', [OrderController::class, 'export'])->name('orders.export');
 
     Route::prefix('/account')->group(function () {
         Route::get('/admin', [AdminController::class, 'index'])->name('account.admin');

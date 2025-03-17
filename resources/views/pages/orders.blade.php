@@ -2,7 +2,107 @@
     <!-- Orders -->
     <div class="trezo-card bg-white dark:bg-[#0c1427] mb-[25px] p-[20px] md:p-[25px] rounded-md">
         <div class="trezo-card-content">
-            <div class="overflow-x-auto table-responsive">
+
+            <button
+                class="inline-block py-[10px] px-[30px] bg-primary-500 text-white transition-all hover:bg-primary-400 rounded-md border border-primary-500 hover:border-primary-400"
+                type="button" id="add-new-popup-toggle">
+                Export PDF
+            </button>
+
+            @if (Session::has('success'))
+                <div
+                    class="py-[1rem] px-[1rem] text-success-500 bg-success-50 border border-success-200 rounded-md my-3">
+                    {{ Session::get('success') }}
+                </div>
+            @endif
+
+            <div class="add-new-popup z-[999] fixed transition-all inset-0 overflow-x-hidden overflow-y-auto"
+                id="add-new-popup">
+                <div class="popup-dialog flex transition-all max-w-[550px] min-h-full items-center mx-auto">
+                    <div class="trezo-card w-full bg-white dark:bg-[#0c1427] p-[20px] md:p-[25px] rounded-md">
+                        <div
+                            class="trezo-card-header bg-gray-50 dark:bg-[#15203c] mb-[20px] md:mb-[25px] flex items-center justify-between -mx-[20px] md:-mx-[25px] -mt-[20px] md:-mt-[25px] p-[20px] md:p-[25px] rounded-t-md">
+                            <div class="trezo-card-title">
+                                <h5 class="mb-0">
+                                    Export PDF
+                                </h5>
+                            </div>
+                            <div class="trezo-card-subtitle">
+                                <button type="button"
+                                    class="text-[23px] transition-all leading-none text-black dark:text-white hover:text-primary-500"
+                                    id="add-new-popup-toggle">
+                                    <i class="ri-close-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="trezo-card-content pb-[20px] md:pb-[25px]">
+
+                            <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow cursor-pointer"
+                                onclick="window.open('{{ route('orders.export', 'daily') }}', '_blank');">
+                                <div class="p-5">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 text-white bg-blue-500 rounded-md">
+                                            <i
+                                                class="relative leading-none text-gray-900 transition-all material-symbols-outlined dark:text-gray-400 -top-px">
+                                                picture_as_pdf
+                                            </i>
+                                        </div>
+                                        <div class="flex-1 w-0 ml-5">
+                                            <dl>
+                                                <dt class="text-sm font-medium text-gray-500 truncate">
+                                                    Penjualan Harian
+                                                </dt>
+                                                <dd>
+                                                    <div class="text-lg font-medium text-gray-900">
+                                                        Export penjualan harian untuk bulan ini
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4 bg-white border border-gray-200 rounded-lg shadow cursor-pointer"
+                                onclick="window.open('{{ route('orders.export', 'monthly') }}', '_blank');">
+                                <div class="p-5">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 text-white bg-blue-500 rounded-md">
+                                            <i
+                                                class="relative leading-none text-gray-900 transition-all material-symbols-outlined dark:text-gray-400 -top-px">
+                                                picture_as_pdf
+                                            </i>
+                                        </div>
+                                        <div class="flex-1 w-0 ml-5">
+                                            <dl>
+                                                <dt class="text-sm font-medium text-gray-500 truncate">
+                                                    Penjualan Bulanan
+                                                </dt>
+                                                <dd>
+                                                    <div class="text-lg font-medium text-gray-900">
+                                                        Export penjualan bulanan untuk tahun ini
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div
+                            class="trezo-card-footer flex items-center justify-end -mx-[20px] md:-mx-[25px] px-[20px] md:px-[25px] pt-[20px] md:pt-[25px] border-t border-gray-100 dark:border-[#172036]">
+                            <button
+                                class="inline-block py-[10px] px-[30px] bg-danger-500 text-white transition-all hover:bg-danger-400 rounded-md border border-danger-500 hover:border-danger-400"
+                                type="button" id="add-new-popup-toggle">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 overflow-x-auto table-responsive">
                 @if (Session::has('success'))
                     <div
                         class="py-[1rem] px-[1rem] text-success-500 bg-success-50 border border-success-200 rounded-md mb-3">
@@ -93,8 +193,8 @@
                                                     </i>
                                                 </button>
                                             </form>
-                                            <form action="{{ route('orders.cancel', $order->order_id) }}" method="POST"
-                                                class="inline">
+                                            <form action="{{ route('orders.cancel', $order->order_id) }}"
+                                                method="POST" class="inline">
                                                 @csrf
                                                 <button class="leading-none text-danger-500 custom-tooltip"
                                                     id="customTooltip" data-text="Cancel">
