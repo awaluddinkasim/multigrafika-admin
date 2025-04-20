@@ -103,13 +103,6 @@
             </div>
 
             <div class="mt-3 overflow-x-auto table-responsive">
-                @if (Session::has('success'))
-                    <div
-                        class="py-[1rem] px-[1rem] text-success-500 bg-success-50 border border-success-200 rounded-md mb-3">
-                        {{ Session::get('success') }}
-                    </div>
-                @endif
-
                 <table class="w-full">
                     <thead class="text-black dark:text-white">
                         <tr>
@@ -203,6 +196,18 @@
                                                     </i>
                                                 </button>
                                             </form>
+                                        </div>
+                                    @elseif ($order->status == 'completed')
+                                        <div class="flex items-center gap-[9px]">
+                                            <button type="button"
+                                                onclick="window.open('{{ route('orders.invoice', $order->order_id) }}', '_blank')"
+                                                class="flex items-center px-2 py-1 leading-none text-gray-500 bg-transparent border border-gray-300 dark:text-gray-400 custom-tooltip rounded-xl"
+                                                id="customTooltip" data-text="Nota">
+                                                <i class="material-symbols-outlined !text-md">
+                                                    receipt
+                                                </i>
+                                                <span class="ms-1">Invoice</span>
+                                            </button>
                                         </div>
                                     @else
                                         -

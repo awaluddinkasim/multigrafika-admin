@@ -38,6 +38,15 @@ class OrderController extends Controller
         return to_route('orders')->with('success', __('order.cancelled'));
     }
 
+    public function invoice(Order $order)
+    {
+        $pdf = Pdf::loadView('pdf.invoice', [
+            'order' => $order
+        ]);
+
+        return $pdf->stream('invoice-' . $order->order_id . '.pdf');
+    }
+
     public function export($period): Response
     {
         if ($period == 'monthly') {
