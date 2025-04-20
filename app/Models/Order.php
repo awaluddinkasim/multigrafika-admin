@@ -19,7 +19,15 @@ class Order extends Model
     {
         parent::boot();
         static::creating(function ($model) {
-            $count = self::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->count() + 1;
+            $order = self::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->latest()->first();
+
+            if ($order) {
+                $last = explode('-', $order->order_id);
+
+                $count = $last[1] + 1;
+            } else {
+                $count = 1;
+            }
 
             $id = sprintf('%s-%05d', date('ym'), $count);
 
